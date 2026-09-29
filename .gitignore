@@ -1,0 +1,17 @@
+# Dependencies and build output
+node_modules/
+dist/
+
+# Local env and secrets
+.env
+.env.*
+!.env.example
+
+# Supabase CLI local state
+supabase/.branches/
+supabase/.temp/
+
+# Venue booking PDFs can contain personal details; keep them out of the repo
+seed-data/*.pdf
+
+.DS_Store

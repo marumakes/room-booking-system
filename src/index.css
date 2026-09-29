@@ -1,0 +1,163 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+/* Dark mode follows the .dark class on <html>, set from the theme toggle. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Theme colours. A clean neutral base (white cards on soft grey), near-black actions,
+ * and indigo from the logo's night sky as the accent: your own rooms and the focus ring.
+ * Components use these names (bg-surface, text-muted, bg-primary…), so light and dark
+ * are both defined here and components rarely need dark: classes.
+ * Every text/background pair meets WCAG AA (4.5:1 text, 3:1 borders, dots and focus).
+ */
+:root {
+  --canvas: #f4f4f5;
+  --surface: #ffffff;
+  --sunk: #f4f4f5;
+  --track: #e7e7ea;
+  --ink: #18181b;
+  --muted: #595964;
+  --line: #e9e9ec;
+  --line-strong: #8a8a95;
+  --primary: #18181b;
+  --primary-hover: #3f3f46;
+  --on-primary: #ffffff;
+  --accent: #4338ca;
+  --focus: #4338ca;
+  --mine-soft: #eef0ff;
+  --mine-ink: #312e81;
+  --mine-dot: #4f46e5;
+  --open-soft: #e9f8ef;
+  --open-ink: #14532d;
+  --open-dot: #16a34a;
+  --taken-dot: #8a8a95;
+  --warn-soft: #fdf3dd;
+  --warn-ink: #6b3d0c;
+  --danger: #be123c;
+  --danger-hover: #9f1239;
+  --on-danger: #ffffff;
+  --danger-soft: #fff0f2;
+  --danger-ink: #9f1239;
+  --success-soft: #e9f8ef;
+  --success-ink: #14532d;
+  --card-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 12px 32px -16px rgb(0 0 0 / 0.12);
+  /* A soft wash over the whole page in night-sky indigo, sky blue and violet:
+     a diagonal base so every part is tinted, plus large overlapping glows for depth.
+     Sized in % so it scales with the screen. Muted text stays at 4.5:1 even where everything overlaps. */
+  --page-glow:
+    radial-gradient(45% 55% at 18% 22%, rgb(129 140 248 / 0.15), transparent),
+    radial-gradient(50% 60% at 82% 28%, rgb(56 189 248 / 0.12), transparent),
+    radial-gradient(60% 50% at 55% 88%, rgb(167 139 250 / 0.14), transparent),
+    linear-gradient(135deg, #f1f1f8 0%, #f3f3f7 40%, #eef1f9 70%, #f2f0f8 100%);
+}
+
+html.dark {
+  color-scheme: dark;
+  --canvas: #0c0b10;
+  --surface: #17161d;
+  --sunk: #222129;
+  --track: #26252e;
+  --ink: #f4f4f5;
+  --muted: #a5a5b0;
+  --line: #2a2932;
+  --line-strong: #76757f;
+  --primary: #f4f4f5;
+  --primary-hover: #d4d4d8;
+  --on-primary: #18181b;
+  --accent: #a5b4fc;
+  --focus: #a5b4fc;
+  --mine-soft: #1e1b4b;
+  --mine-ink: #e0e7ff;
+  --mine-dot: #a5b4fc;
+  --open-soft: #0f2619;
+  --open-ink: #bbf2cf;
+  --open-dot: #34c26a;
+  --taken-dot: #76757f;
+  --warn-soft: #2d2310;
+  --warn-ink: #fbe3a3;
+  --danger-soft: #3a0e19;
+  --danger-ink: #fecdd6;
+  --success-soft: #0f2619;
+  --success-ink: #bbf2cf;
+  --card-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.6);
+  --page-glow:
+    radial-gradient(45% 55% at 18% 22%, rgb(99 102 241 / 0.16), transparent),
+    radial-gradient(50% 60% at 82% 28%, rgb(14 165 233 / 0.1), transparent),
+    radial-gradient(60% 50% at 55% 88%, rgb(139 92 246 / 0.11), transparent),
+    linear-gradient(135deg, #0d0e1c 0%, #0c0b14 40%, #0b1122 70%, #100c1c 100%);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-sunk: var(--sunk);
+  --color-track: var(--track);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+  --color-accent: var(--accent);
+  --color-focus: var(--focus);
+  --color-mine-soft: var(--mine-soft);
+  --color-mine-ink: var(--mine-ink);
+  --color-mine-dot: var(--mine-dot);
+  --color-open-soft: var(--open-soft);
+  --color-open-ink: var(--open-ink);
+  --color-open-dot: var(--open-dot);
+  --color-taken-dot: var(--taken-dot);
+  --color-warn-soft: var(--warn-soft);
+  --color-warn-ink: var(--warn-ink);
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-on-danger: var(--on-danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-ink: var(--danger-ink);
+  --color-success-soft: var(--success-soft);
+  --color-success-ink: var(--success-ink);
+  --shadow-card: var(--card-shadow);
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  @apply bg-canvas font-sans text-ink antialiased;
+}
+
+/* The wash sits behind everything and stays put while the page scrolls: a fixed layer rather than
+   background-attachment: fixed, which iOS Safari ignores. It drifts very slightly (45s each way),
+   by transform only so the GPU handles it; oversized (inset -10%) so the drift never shows an edge. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -10%;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--page-glow);
+  animation: page-glow-drift 45s ease-in-out infinite alternate;
+}
+
+@keyframes page-glow-drift {
+  to {
+    transform: translate(-3%, 2%) rotate(4deg) scale(1.06);
+  }
+}
+
+/* Still for anyone who has asked their device for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+}
+
+/* Radios and checkboxes in the accent colour, not the browser's blue. */
+input {
+  accent-color: var(--accent);
+}
+
+/* Keyboard focus is always visible. */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-focus;
+}
